@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service'; // replace with the actual path
+
 
 @Component({
   selector: 'app-logowanie',
@@ -13,7 +16,7 @@ export class LogowanieComponent implements OnInit {
     password: ''
   }
 
-  constructor() { 
+  constructor(private authService: AuthService, private router: Router) { 
     this.title = 'Witaj na stronie logowania'
   }
 
@@ -21,11 +24,14 @@ export class LogowanieComponent implements OnInit {
   }
 
   logowanie() {
-    if(this.formData.username === 'przykladowyUzytkownik' && this.formData.password === 'przykladoweHaslo') {
+    if(this.formData.username === 'user' && this.formData.password === 'user') {
       console.log('Zalogowano pomyślnie');
     } else {
       console.log('Błąd logowanie. Sprawdź dane.');
-    }
-  }
 
+
+    }
+    this.authService.login();
+    this.router.navigate(['/dashboard']);
+  }
 }
